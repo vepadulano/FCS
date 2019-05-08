@@ -13,8 +13,9 @@ after_success:
 deploy:
   provider: pages
   skip_cleanup: true
+  keep_history: true
   github_token: $token # set in the Travis dashboard
-  local_dir: docs/build/html
+  local_dir: docs
   on:
     branch: master
   notifications:
