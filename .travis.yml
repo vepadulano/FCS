@@ -1,10 +1,25 @@
 language: python
 dist: xenial
+branches:
+  only:
+  - master
 python:
-  - "3.7"
-
-sudo: false
+- '3.7'
 cache: pip
-
 install: "pip install sphinx sphinx_rtd_theme"
 script: sphinx-build -b html docs docs/build/html
+after_success:
+  #test the docs
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $token # set in the Travis dashboard
+  local_dir: docs/build/html
+  on:
+    branch: master
+  notifications:
+    email:
+      recipients:
+        - v.e.padulano@gmail.com # your email here
+      on_success: never
+      on_failure: always
